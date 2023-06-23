@@ -4,7 +4,7 @@ The main purpose of this install script is to quickly bootstrap and setup a Fedo
 
 ### How to run the post install script
 ```shell
-curl -sS https://raw.githubusercontent.com/0xAquaWolf/post-install/main/post-install.sh | sh
+curl -sS https://raw.githubusercontent.com/0xAquaWolf/post-install/testing/post-install.sh | sh
 ```
 
 
