@@ -12,6 +12,17 @@ print_header() {
   echo "Fedora Post Install Script"
 }
 
+main() {
+  print_header
+
+  # DNF_CONF=/etc/dnf/dnf.conf
+
+  # echo "max_parallel_downloads=10" >> "$DNF_CONF"
+  # echo "fastestmirror=True" >> "$DNF_CONF"
+
+}
+
+main
 
 # TODO: 
 # - make sure github is installed
@@ -25,10 +36,11 @@ print_header() {
 
 
 # Update dnf package manager to best faster
-DNF_CONF=/etc/dnf/dnf.conf
+#
+# DNF_CONF=/etc/dnf/dnf.conf
 
-echo "max_parallel_downloads=10" >> "$DNF_CONF"
-echo "fastestmirror=True" >> "$DNF_CONF"
+# echo "max_parallel_downloads=10" >> "$DNF_CONF"
+# echo "fastestmirror=True" >> "$DNF_CONF"
 
 # # update the system
 
