@@ -26,10 +26,12 @@ main() {
   print_header
 
   # Update dnf package manager to best faster
-  # DNF_CONF=/etc/dnf/dnf.conf
+  DNF_CONF=/etc/dnf/dnf.conf
 
-  # echo "max_parallel_downloads=10" >> "$DNF_CONF"
-  # echo "fastestmirror=True" >> "$DNF_CONF"
+  echo "max_parallel_downloads=10" >> "$DNF_CONF"
+  echo "fastestmirror=True" >> "$DNF_CONF"
+
+  cat /etc/dnf/dnf/conf
   
   # # update the system
 
