@@ -25,12 +25,15 @@ echo "Fedora Post Install Script"
 main() {
   print_header
 
-  # Update dnf package manager to best faster
-  echo "Updating dnf.conf for faster downloads"
+  # Update dnf package manager to best fastestmirror
+
+  echo "updating dnf conf"
+
   DNF_CONF=/etc/dnf/dnf.conf
 
-  sudo echo "max_parallel_downloads=10" >> "$DNF_CONF"
-  sudo echo "fastestmirror=True" >> "$DNF_CONF"
+  echo "max_parallel_downloads=10" >> "$DNF_CONF"
+  echo "fastestmirror=True" >> "$DNF_CONF"
+  echo "deltarpm=True" >> "$DNF_CONF"
   
   # # update the system
 
