@@ -4,7 +4,7 @@ The main purpose of this install script is to quickly bootstrap and setup a Fedo
 
 ### How to run the post install script
 ```shell
-https://github.com/0xAquaWolf/post-install.git)https://github.com/0xAquaWolf/post-install.git
+git clone https://github.com/0xAquaWolf/post-install.git
 cd post-install
 ./post-install
 ```
