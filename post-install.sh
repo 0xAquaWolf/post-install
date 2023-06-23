@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# TODO: 
+# - make sure github is installed
+# - Install Neofetch
+# - Install Rust
+# - Install Pip, pipx
+# - install node with fnm
+# - Install Nerd Font
+# - Set as default in terminal
+# - Install lunarvim
+
 print_header() {
   cat << 'EOF'
    ██████╗ ██╗  ██╗ █████╗  ██████╗ ██╗   ██╗ █████╗ ██╗    ██╗ ██████╗ ██╗     ███████╗
@@ -24,17 +34,6 @@ main() {
 
 main
 
-# TODO: 
-# - make sure github is installed
-# - Install Neofetch
-# - Install Rust
-# - Install Pip, pipx
-# - install node with fnm
-# - Install Nerd Font
-# - Set as default in terminal
-# - Install lunarvim
-
-
 # Update dnf package manager to best faster
 #
 # DNF_CONF=/etc/dnf/dnf.conf
@@ -53,7 +52,4 @@ main
 # sudo rpm -Uvh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 # sudo dnf upgrade --refresh
 # sudo dnf groupupdate core
-
-
-
 
