@@ -28,7 +28,6 @@ main() {
   # ===== | Update dnf package manager to best fastestmirror | ==========
   #
   
-  print_current_cmd "updating dnf conf"
 
   DNF_CONF=/etc/dnf/dnf.conf
 
@@ -37,6 +36,8 @@ main() {
      ! grep -Fxq "fastestmirror=True" "$DNF_CONF" && \
      ! grep -Fxq "deltarpm=True" "$DNF_CONF"; then
     # Append the lines to DNF_CONF if they don't exist
+    print_current_cmd "updating dnf conf"
+
     echo "max_parallel_downloads=10" >> "$DNF_CONF"
     echo "fastestmirror=True" >> "$DNF_CONF"
     echo "deltarpm=True" >> "$DNF_CONF"
