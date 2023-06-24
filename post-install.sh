@@ -21,6 +21,19 @@ EOF
 echo "Fedora Post Install Script"
 }
 
+check_display() {
+
+  echo "$XDG_SESSION_TYPE"
+
+  has_display=false
+
+  if [[ "$XDG_SESSION_TYPE" == "x11" || "$XDG_SESSION_TYPE" == "wayland" ]]; then
+    echo "has display is TRUE"
+    has_display=true
+  fi
+
+  echo "$has_display"
+}
 
 main() {
   print_header
@@ -36,7 +49,7 @@ main() {
     has_display=true
   fi
 
-  echo has_display
+  echo "$has_display"
 
   DNF_CONF=/etc/dnf/dnf.conf
 
@@ -77,14 +90,16 @@ main() {
 
   # ===== | install packages for both | ==========
   print_current_cmd "installing applications"
-  sudo dnf install -y unzip unrar neovim htop lsd zsh 
+  sudo dnf install -y unzip unrar neovim htop lsd zsh fastfetch neofetch
   
   if has_display; then
     # ===== | Install Desktop packages | ==========
-    sudo dnf install -y vlc virtualbox akmod-VirtualBox alacritty
+    print_current_cmd "Has Display"
+    # sudo dnf install -y vlc virtualbox akmod-VirtualBox alacritty
   else
     # ===== | Install server packages | ==========
-    sudo dnf install -y caddy nodejs
+    print_current_cmd "No Display Present"
+    # sudo dnf install -y caddy nodejs
   fi
 
   # ===== | Configuring Python | ==========
@@ -104,5 +119,6 @@ print_current_cmd() {
   echo $1;
 }
 
+# main
 
-main
+check_display
