@@ -1,7 +1,6 @@
 #!/usr/bin/sudo bash
 
 # TODO: 
-# - make sure github is installed
 # - Install Neofetch
 # - Install Rust
 # - Install Pip, pipx
@@ -22,12 +21,22 @@ EOF
 echo "Fedora Post Install Script"
 }
 
+
 main() {
   print_header
 
   # ===== | Update dnf package manager to best fastestmirror | ==========
   #
   
+  session_type=$(echo "$XDG_SESSION_TYPE" | tr '[:upper:]' '[:lower:]')
+
+  has_display=false
+
+  if [[ "$session_type" == "x11" || "$session_type" == "wayland" ]]; then
+    has_display=true
+  fi
+
+  echo has_display
 
   DNF_CONF=/etc/dnf/dnf.conf
 
@@ -50,14 +59,44 @@ main() {
   # ===== | enable RPM Fusion | ==========
   
   print_current_cmd "enabling RPM Fusion"
-  sudo rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  sudo rpm -Uvh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-  sudo dnf upgrade --refresh
-  sudo dnf groupupdate core
+  sudo rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
+  sudo rpm -Uvh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+  sudo dnf upgrade --refresh -y
+  sudo dnf groupupdate core -y
 
   # ===== | Change Host Name | ==========
   print_current_cmd "Changing hostname"
   sudo hostnamectl set-hostname "AquaOS"
+
+  # ===== | Securing Server | ==========
+  # print_current_cmd "Securing Server"
+  # sudo firewall-cmd --permanent --zone=public --add-service=http
+  # sudo firewall-cmd --permanent --zone=public --add-service=https
+  # sudo firewall-cmd --reload
+  # sudo setsebool httpd_can_network_connect on
+
+  # ===== | install packages for both | ==========
+  print_current_cmd "installing applications"
+  sudo dnf install -y unzip unrar neovim htop lsd zsh 
+  
+  if has_display; then
+    # ===== | Install Desktop packages | ==========
+    sudo dnf install -y vlc virtualbox akmod-VirtualBox alacritty
+  else
+    # ===== | Install server packages | ==========
+    sudo dnf install -y caddy nodejs
+  fi
+
+  # ===== | Configuring Python | ==========
+  # print_current_cmd "Installing pip"
+  # python -m ensurepip --upgrade
+  # print_current_cmd "Installing pipx"
+  # python3 -m pip install --user pipx
+  # python3 -m pipx ensurepath
+
+  # # ===== | install rust | ==========
+  # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 }
 
 print_current_cmd() {
