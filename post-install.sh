@@ -37,7 +37,7 @@ main() {
   
   # ===== | update the system | ==========
   current_status "updating packages"
-  # sudo dnf update -y && sudo dnf upgrade -y
+  sudo dnf update -y && sudo dnf upgrade -y
   
   # ===== | enable RPM Fusion | ==========
   
