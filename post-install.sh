@@ -119,6 +119,6 @@ print_current_cmd() {
   echo $1;
 }
 
-# main
+main
 
-check_display
+# check_display
