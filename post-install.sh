@@ -69,11 +69,11 @@ main() {
   sudo hostnamectl set-hostname "AquaOS"
 
   # ===== | Securing Server | ==========
-  # print_current_cmd "Securing Server"
-  # sudo firewall-cmd --permanent --zone=public --add-service=http
-  # sudo firewall-cmd --permanent --zone=public --add-service=https
-  # sudo firewall-cmd --reload
-  # sudo setsebool httpd_can_network_connect on
+  print_current_cmd "Securing Server"
+  sudo firewall-cmd --permanent --zone=public --add-service=http
+  sudo firewall-cmd --permanent --zone=public --add-service=https
+  sudo firewall-cmd --reload
+  sudo setsebool httpd_can_network_connect on
 
   # ===== | install packages for both | ==========
   print_current_cmd "installing applications"
