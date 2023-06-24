@@ -54,9 +54,9 @@ main() {
   DNF_CONF=/etc/dnf/dnf.conf
 
   # Check if the lines already exist in DNF_CONF
-  if ! grep -Fxq "max_parallel_downloads=10" "$DNF_CONF" && \
-     ! grep -Fxq "fastestmirror=True" "$DNF_CONF" && \
-     ! grep -Fxq "deltarpm=True" "$DNF_CONF"; then
+  if ! sudo grep -Fxq "max_parallel_downloads=10" "$DNF_CONF" && \
+     ! sudo grep -Fxq "fastestmirror=True" "$DNF_CONF" && \
+     ! sudo grep -Fxq "deltarpm=True" "$DNF_CONF"; then
     # Append the lines to DNF_CONF if they don't exist
     print_current_cmd "updating dnf conf"
 
