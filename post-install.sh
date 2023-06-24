@@ -28,27 +28,38 @@ main() {
   # ===== | Update dnf package manager to best fastestmirror | ==========
   #
   
-  current_status "updating dnf conf"
+  print_current_cmd "updating dnf conf"
 
   DNF_CONF=/etc/dnf/dnf.conf
-  echo "max_parallel_downloads=10" >> "$DNF_CONF"
-  echo "fastestmirror=True" >> "$DNF_CONF"
-  echo "deltarpm=True" >> "$DNF_CONF"
+
+  # Check if the lines already exist in DNF_CONF
+  if ! grep -Fxq "max_parallel_downloads=10" "$DNF_CONF" && \
+     ! grep -Fxq "fastestmirror=True" "$DNF_CONF" && \
+     ! grep -Fxq "deltarpm=True" "$DNF_CONF"; then
+    # Append the lines to DNF_CONF if they don't exist
+    echo "max_parallel_downloads=10" >> "$DNF_CONF"
+    echo "fastestmirror=True" >> "$DNF_CONF"
+    echo "deltarpm=True" >> "$DNF_CONF"
+  fi
   
   # ===== | update the system | ==========
-  current_status "updating packages"
+  print_current_cmd "updating packages"
   sudo dnf update -y && sudo dnf upgrade -y
   
   # ===== | enable RPM Fusion | ==========
   
-  # current_status "enabling RPM Fusion"
-  # sudo rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  # sudo rpm -Uvh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-  # sudo dnf upgrade --refresh
-  # sudo dnf groupupdate core
+  print_current_cmd "enabling RPM Fusion"
+  sudo rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo rpm -Uvh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf upgrade --refresh
+  sudo dnf groupupdate core
+
+  # ===== | Change Host Name | ==========
+  print_current_cmd "Changing hostname"
+  sudo hostnamectl set-hostname "AquaOS"
 }
 
-current_status() {
+print_current_cmd() {
   echo -e "\n"
   echo $1;
 }
